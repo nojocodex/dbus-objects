@@ -1,0 +1,7 @@
+jeepney\_objects.object module
+==============================
+
+.. automodule:: jeepney_objects.object
+   :members:
+   :undoc-members:
+   :show-inheritance:
