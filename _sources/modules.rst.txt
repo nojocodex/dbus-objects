@@ -1,5 +1,5 @@
-ratbag_emu
-==========
+jeepney_objects
+===============
 
 .. toctree::
    :maxdepth: 4
