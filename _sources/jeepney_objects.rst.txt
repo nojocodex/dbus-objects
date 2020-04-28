@@ -16,6 +16,7 @@ Submodules
    :maxdepth: 4
 
    jeepney_objects.object
+   jeepney_objects.types
    jeepney_objects.util
 
 Module contents
