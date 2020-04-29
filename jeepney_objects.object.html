@@ -52,6 +52,9 @@
 <dt id="jeepney_objects.object.DBusObject">
 <em class="property">class </em><code class="sig-prename descclassname">jeepney_objects.object.</code><code class="sig-name descname">DBusObject</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#jeepney_objects.object.DBusObject" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>This class represents a DBus object. It should be subclassed and to export
+DBus methods, you must define typed functions with the
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">jeepney_objects.object.dbus_object()</span></code> decorator.</p>
 <dl class="py method">
 <dt id="jeepney_objects.object.DBusObject.dbus_name">
 <em class="property">property </em><code class="sig-name descname">dbus_name</code><a class="headerlink" href="#jeepney_objects.object.DBusObject.dbus_name" title="Permalink to this definition">¶</a></dt>
@@ -63,9 +66,10 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="jeepney_objects.object.DBusObject.get_dbus_handlers">
-<code class="sig-name descname">get_dbus_handlers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jeepney_objects.object.DBusObject.get_dbus_handlers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a dictionary of the DBus method handlers</p>
+<dt id="jeepney_objects.object.DBusObject.get_dbus_methods">
+<code class="sig-name descname">get_dbus_methods</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jeepney_objects.object.DBusObject.get_dbus_methods" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary of the DBus methods. The key holds the DBus method
+name and the value holds a reference to the function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference internal" href="jeepney_objects.types.html#jeepney_objects.types.DBusMethod" title="jeepney_objects.types.DBusMethod"><code class="xref py py-class docutils literal notranslate"><span class="pre">DBusMethod</span></code></a>]</p>
@@ -85,10 +89,16 @@
 <dt id="jeepney_objects.object.dbus_method">
 <code class="sig-prename descclassname">jeepney_objects.object.</code><code class="sig-name descname">dbus_method</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#jeepney_objects.object.dbus_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exports a function as a DBus method</p>
-<p>The direction will be detected automatically based on the type hints</p>
+<p>The function must have type annotations, they will be used to resolve the
+method sigature.</p>
+<p>The function name will be used as the DBus method name unless otherwise
+specified in the arguments.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[…, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]], <a class="reference internal" href="jeepney_objects.types.html#jeepney_objects.types.DBusMethod" title="jeepney_objects.types.DBusMethod"><code class="xref py py-class docutils literal notranslate"><span class="pre">DBusMethod</span></code></a>]</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – DBus method name</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[…, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]], <a class="reference internal" href="jeepney_objects.types.html#jeepney_objects.types.DBusMethod" title="jeepney_objects.types.DBusMethod"><code class="xref py py-class docutils literal notranslate"><span class="pre">DBusMethod</span></code></a>]</p>
 </dd>
 </dl>
 </dd></dl>
