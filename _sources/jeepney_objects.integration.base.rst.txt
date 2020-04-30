@@ -1,0 +1,7 @@
+jeepney\_objects.integration.base module
+========================================
+
+.. automodule:: jeepney_objects.integration.base
+   :members:
+   :undoc-members:
+   :show-inheritance:
