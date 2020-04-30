@@ -89,13 +89,13 @@ letter capitalized)</p>
 
 <dl class="py function">
 <dt id="jeepney_objects.util.get_dbus_signature">
-<code class="sig-prename descclassname">jeepney_objects.util.</code><code class="sig-name descname">get_dbus_signature</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="n">ignore_first</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#jeepney_objects.util.get_dbus_signature" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">jeepney_objects.util.</code><code class="sig-name descname">get_dbus_signature</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="n">skip_first_argument</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#jeepney_objects.util.get_dbus_signature" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the DBus signature from a function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>func</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[…, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – target function</p></li>
-<li><p><strong>ignore_first</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – ignores the first argument</p></li>
+<li><p><strong>skip_first_argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – skips the first argument (for use with class methods)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
