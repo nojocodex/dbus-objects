@@ -8,7 +8,6 @@ Submodules
    :maxdepth: 4
 
    dbus_objects.integration.base
-   dbus_objects.integration.blocking
 
 Module contents
 ---------------
