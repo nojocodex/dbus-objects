@@ -1,0 +1,19 @@
+dbus\_objects.integration package
+=================================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   dbus_objects.integration.base
+   dbus_objects.integration.blocking
+
+Module contents
+---------------
+
+.. automodule:: dbus_objects.integration
+   :members:
+   :undoc-members:
+   :show-inheritance:

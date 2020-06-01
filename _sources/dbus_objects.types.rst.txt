@@ -1,0 +1,7 @@
+dbus\_objects.types module
+==========================
+
+.. automodule:: dbus_objects.types
+   :members:
+   :undoc-members:
+   :show-inheritance:

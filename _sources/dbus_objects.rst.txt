@@ -1,0 +1,29 @@
+dbus\_objects package
+=====================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   dbus_objects.integration
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   dbus_objects.object
+   dbus_objects.types
+   dbus_objects.util
+   dbus_objects.xml
+
+Module contents
+---------------
+
+.. automodule:: dbus_objects
+   :members:
+   :undoc-members:
+   :show-inheritance:
