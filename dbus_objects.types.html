@@ -4,6 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>dbus_objects.types module &#8212; dbus-objects  documentation</title>
     <link rel="stylesheet" href="_static/flask.css" type="text/css" />
@@ -37,7 +38,8 @@
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">dbus-objects  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >dbus_objects</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="dbus_objects.html" accesskey="U">dbus_objects package</a> &#187;</li> 
+          <li class="nav-item nav-item-2"><a href="dbus_objects.html" accesskey="U">dbus_objects package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">dbus_objects.types module</a></li> 
       </ul>
     </div>  
 
@@ -50,36 +52,36 @@
 <span id="dbus-objects-types-module"></span><h1>dbus_objects.types module<a class="headerlink" href="#module-dbus_objects.types" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="dbus_objects.types.DBusMethod">
-<em class="property">class </em><code class="sig-prename descclassname">dbus_objects.types.</code><code class="sig-name descname">DBusMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus_objects.types.DBusMethod" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">dbus_objects.types.</code><code class="sig-name descname">DBusMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwds</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus_objects.types.DBusMethod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Protocol" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></a></p>
 <dl class="py attribute">
 <dt id="dbus_objects.types.DBusMethod.dbus_interface">
-<code class="sig-name descname">dbus_interface</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#dbus_objects.types.DBusMethod.dbus_interface" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">dbus_interface</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></em><a class="headerlink" href="#dbus_objects.types.DBusMethod.dbus_interface" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="dbus_objects.types.DBusMethod.dbus_method_name">
-<code class="sig-name descname">dbus_method_name</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#dbus_objects.types.DBusMethod.dbus_method_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">dbus_method_name</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></em><a class="headerlink" href="#dbus_objects.types.DBusMethod.dbus_method_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="dbus_objects.types.DBusMethod.dbus_parameters">
-<code class="sig-name descname">dbus_parameters</code><em class="property">: typing.Dict[str, str]</em><em class="property"> = None</em><a class="headerlink" href="#dbus_objects.types.DBusMethod.dbus_parameters" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">dbus_parameters</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.8)">typing.Dict</a><span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span></em><a class="headerlink" href="#dbus_objects.types.DBusMethod.dbus_parameters" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="dbus_objects.types.DBusMethod.dbus_return_names">
-<code class="sig-name descname">dbus_return_names</code><em class="property">: typing.List[str]</em><em class="property"> = None</em><a class="headerlink" href="#dbus_objects.types.DBusMethod.dbus_return_names" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">dbus_return_names</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.8)">typing.List</a><span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span></em><a class="headerlink" href="#dbus_objects.types.DBusMethod.dbus_return_names" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="dbus_objects.types.DBusMethod.dbus_signature">
-<code class="sig-name descname">dbus_signature</code><em class="property">: typing.Tuple[str, str]</em><em class="property"> = None</em><a class="headerlink" href="#dbus_objects.types.DBusMethod.dbus_signature" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">dbus_signature</code><em class="property">: typing.Tuple<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span></em><a class="headerlink" href="#dbus_objects.types.DBusMethod.dbus_signature" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="dbus_objects.types.DBusMethod.is_dbus_method">
-<code class="sig-name descname">is_dbus_method</code><em class="property">: typing.Literal[True]</em><em class="property"> = None</em><a class="headerlink" href="#dbus_objects.types.DBusMethod.is_dbus_method" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">is_dbus_method</code><em class="property">: typing.Literal[True]</em><a class="headerlink" href="#dbus_objects.types.DBusMethod.is_dbus_method" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -87,6 +89,7 @@
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -128,7 +131,7 @@
   
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Filipe Laíns.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.4.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
     </div>
   <script src="_static/version_warning_offset.js"></script>
 
