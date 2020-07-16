@@ -15,4 +15,5 @@ Tests:
 ### License
 
 This software is offered under the [Hippocratic License 2.1](https://firstdonoharm.dev/),
-a permissive license that prohibits the use of this software in unethical contexts.
+a permissive license that enforces the licensee to comply with human rights principles
+and laws.
