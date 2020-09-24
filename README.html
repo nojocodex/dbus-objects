@@ -156,47 +156,47 @@
 </pre></div>
 </div>
 <p>And, for eg., the following DBus introspection XML for <code class="docutils literal notranslate"><span class="pre">/io/github/ffy00/dbus_objects/example</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;!DOCTYPE node PUBLIC
-&quot;-//freedesktop//DTD D-BUS Object Introspection 1.0//EN&quot;
-&quot;http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd&quot; &gt;
-&lt;node xmlns:doc=&quot;http://www.freedesktop.org/dbus/1.0/doc.dtd&quot;&gt;
-    &lt;interface name=&quot;io.github.ffy00.dbus_objects.example.ExampleObject&quot;&gt;
-        &lt;method name=&quot;GetBets&quot;&gt;
-            &lt;arg direction=&quot;out&quot; type=&quot;ai&quot; /&gt;
-        &lt;/method&gt;
-        &lt;method name=&quot;Lotery&quot;&gt;
-            &lt;arg direction=&quot;out&quot; type=&quot;i&quot; /&gt;
-        &lt;/method&gt;
-        &lt;method name=&quot;Ping&quot;&gt;
-            &lt;arg direction=&quot;out&quot; type=&quot;s&quot; /&gt;
-        &lt;/method&gt;
-        &lt;method name=&quot;Print&quot;&gt;
-            &lt;arg direction=&quot;in&quot; type=&quot;s&quot; name=&quot;msg&quot; /&gt;
-        &lt;/method&gt;
-        &lt;method name=&quot;SaveBet&quot;&gt;
-            &lt;arg direction=&quot;in&quot; type=&quot;i&quot; name=&quot;number&quot; /&gt;
-        &lt;/method&gt;
-        &lt;method name=&quot;Sum&quot;&gt;
-            &lt;arg direction=&quot;in&quot; type=&quot;i&quot; name=&quot;a&quot; /&gt;
-            &lt;arg direction=&quot;in&quot; type=&quot;i&quot; name=&quot;b&quot; /&gt;
-            &lt;arg direction=&quot;out&quot; type=&quot;i&quot; /&gt;
-        &lt;/method&gt;
-    &lt;/interface&gt;
-    &lt;interface name=&quot;org.freedesktop.DBus.Properties&quot;&gt;
-        &lt;method name=&quot;GetAll&quot;&gt;
-            &lt;arg direction=&quot;in&quot; type=&quot;s&quot; name=&quot;interface_name&quot; /&gt;
-            &lt;arg direction=&quot;out&quot; type=&quot;a{sv}&quot; /&gt;
-        &lt;/method&gt;
-    &lt;/interface&gt;
-    &lt;interface name=&quot;org.freedesktop.DBus.Introspectable&quot;&gt;
-        &lt;method name=&quot;Introspect&quot;&gt;
-            &lt;arg direction=&quot;out&quot; type=&quot;s&quot; name=&quot;xml&quot; /&gt;
-        &lt;/method&gt;
-    &lt;/interface&gt;
-    &lt;interface name=&quot;org.freedesktop.DBus.Peer&quot;&gt;
-        &lt;method name=&quot;Ping&quot; /&gt;
-    &lt;/interface&gt;
-&lt;/node&gt;
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE node PUBLIC</span>
+<span class="cp">&quot;-//freedesktop//DTD D-BUS Object Introspection 1.0//EN&quot;</span>
+<span class="cp">&quot;http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd&quot; &gt;</span>
+<span class="nt">&lt;node</span> <span class="na">xmlns:doc=</span><span class="s">&quot;http://www.freedesktop.org/dbus/1.0/doc.dtd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;interface</span> <span class="na">name=</span><span class="s">&quot;io.github.ffy00.dbus_objects.example.ExampleObject&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;method</span> <span class="na">name=</span><span class="s">&quot;GetBets&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;arg</span> <span class="na">direction=</span><span class="s">&quot;out&quot;</span> <span class="na">type=</span><span class="s">&quot;ai&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/method&gt;</span>
+        <span class="nt">&lt;method</span> <span class="na">name=</span><span class="s">&quot;Lotery&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;arg</span> <span class="na">direction=</span><span class="s">&quot;out&quot;</span> <span class="na">type=</span><span class="s">&quot;i&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/method&gt;</span>
+        <span class="nt">&lt;method</span> <span class="na">name=</span><span class="s">&quot;Ping&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;arg</span> <span class="na">direction=</span><span class="s">&quot;out&quot;</span> <span class="na">type=</span><span class="s">&quot;s&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/method&gt;</span>
+        <span class="nt">&lt;method</span> <span class="na">name=</span><span class="s">&quot;Print&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;arg</span> <span class="na">direction=</span><span class="s">&quot;in&quot;</span> <span class="na">type=</span><span class="s">&quot;s&quot;</span> <span class="na">name=</span><span class="s">&quot;msg&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/method&gt;</span>
+        <span class="nt">&lt;method</span> <span class="na">name=</span><span class="s">&quot;SaveBet&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;arg</span> <span class="na">direction=</span><span class="s">&quot;in&quot;</span> <span class="na">type=</span><span class="s">&quot;i&quot;</span> <span class="na">name=</span><span class="s">&quot;number&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/method&gt;</span>
+        <span class="nt">&lt;method</span> <span class="na">name=</span><span class="s">&quot;Sum&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;arg</span> <span class="na">direction=</span><span class="s">&quot;in&quot;</span> <span class="na">type=</span><span class="s">&quot;i&quot;</span> <span class="na">name=</span><span class="s">&quot;a&quot;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;arg</span> <span class="na">direction=</span><span class="s">&quot;in&quot;</span> <span class="na">type=</span><span class="s">&quot;i&quot;</span> <span class="na">name=</span><span class="s">&quot;b&quot;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;arg</span> <span class="na">direction=</span><span class="s">&quot;out&quot;</span> <span class="na">type=</span><span class="s">&quot;i&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/method&gt;</span>
+    <span class="nt">&lt;/interface&gt;</span>
+    <span class="nt">&lt;interface</span> <span class="na">name=</span><span class="s">&quot;org.freedesktop.DBus.Properties&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;method</span> <span class="na">name=</span><span class="s">&quot;GetAll&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;arg</span> <span class="na">direction=</span><span class="s">&quot;in&quot;</span> <span class="na">type=</span><span class="s">&quot;s&quot;</span> <span class="na">name=</span><span class="s">&quot;interface_name&quot;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;arg</span> <span class="na">direction=</span><span class="s">&quot;out&quot;</span> <span class="na">type=</span><span class="s">&quot;a{sv}&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/method&gt;</span>
+    <span class="nt">&lt;/interface&gt;</span>
+    <span class="nt">&lt;interface</span> <span class="na">name=</span><span class="s">&quot;org.freedesktop.DBus.Introspectable&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;method</span> <span class="na">name=</span><span class="s">&quot;Introspect&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;arg</span> <span class="na">direction=</span><span class="s">&quot;out&quot;</span> <span class="na">type=</span><span class="s">&quot;s&quot;</span> <span class="na">name=</span><span class="s">&quot;xml&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/method&gt;</span>
+    <span class="nt">&lt;/interface&gt;</span>
+    <span class="nt">&lt;interface</span> <span class="na">name=</span><span class="s">&quot;org.freedesktop.DBus.Peer&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;method</span> <span class="na">name=</span><span class="s">&quot;Ping&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/interface&gt;</span>
+<span class="nt">&lt;/node&gt;</span>
 </pre></div>
 </div>
 <div class="section" id="dependencies">
