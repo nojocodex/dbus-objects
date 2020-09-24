@@ -1,7 +1,7 @@
-jeepney\_objects.object module
+dbus\_objects.signature module
 ==============================
 
-.. automodule:: jeepney_objects.object
+.. automodule:: dbus_objects.signature
    :members:
    :undoc-members:
    :show-inheritance:

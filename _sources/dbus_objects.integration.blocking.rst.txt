@@ -1,7 +1,0 @@
-dbus\_objects.integration.blocking module
-=========================================
-
-.. automodule:: dbus_objects.integration.blocking
-   :members:
-   :undoc-members:
-   :show-inheritance:

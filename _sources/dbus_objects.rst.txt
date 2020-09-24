@@ -16,9 +16,8 @@ Submodules
    :maxdepth: 4
 
    dbus_objects.object
+   dbus_objects.signature
    dbus_objects.types
-   dbus_objects.util
-   dbus_objects.xml
 
 Module contents
 ---------------

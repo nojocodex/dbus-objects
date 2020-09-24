@@ -1,7 +1,0 @@
-dbus\_objects.util module
-=========================
-
-.. automodule:: dbus_objects.util
-   :members:
-   :undoc-members:
-   :show-inheritance:

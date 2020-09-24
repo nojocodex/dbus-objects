@@ -1,7 +1,0 @@
-dbus\_objects.xml module
-========================
-
-.. automodule:: dbus_objects.xml
-   :members:
-   :undoc-members:
-   :show-inheritance:

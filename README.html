@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>dbus-objects &#8212; dbus-objects  documentation</title>
     <link rel="stylesheet" href="_static/flask.css" type="text/css" />
@@ -53,8 +53,157 @@
 <ul class="simple">
 <li><p><a class="reference external" href="https://gitlab.com/takluyver/jeepney">jeepney</a></p></li>
 </ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="kn">import</span> <span class="nn">dbus_objects.object</span>
+<span class="kn">import</span> <span class="nn">dbus_objects.integration.jeepney</span>
+
+
+<span class="k">class</span> <span class="nc">ExampleObject</span><span class="p">(</span><span class="n">dbus_objects</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">DBusObject</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">default_interface_root</span><span class="o">=</span><span class="s1">&#39;io.github.ffy00.dbus_objects.example&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bets</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="nd">@dbus_objects</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">dbus_method</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">ping</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;Pong!&#39;</span>
+
+    <span class="nd">@dbus_objects</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">dbus_method</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">print</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="nd">@dbus_objects</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">dbus_method</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+    <span class="nd">@dbus_objects</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">dbus_method</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">save_bet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+
+    <span class="nd">@dbus_objects</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">dbus_method</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">get_bets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bets</span>
+
+    <span class="nd">@dbus_objects</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">dbus_method</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">lotery</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">winner</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bets</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="n">winner</span>
+
+
+<span class="n">server</span> <span class="o">=</span> <span class="n">dbus_objects</span><span class="o">.</span><span class="n">integration</span><span class="o">.</span><span class="n">jeepney</span><span class="o">.</span><span class="n">BlockingDBusServer</span><span class="p">(</span>
+    <span class="n">bus</span><span class="o">=</span><span class="s1">&#39;SESSION&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;io.github.ffy00.dbus-objects&#39;</span>
+<span class="p">)</span>
+<span class="n">server</span><span class="o">.</span><span class="n">register_object</span><span class="p">(</span><span class="s1">&#39;/io/github/ffy00/dbus_objects/example&#39;</span><span class="p">,</span> <span class="n">ExampleObject</span><span class="p">())</span>
+
+<span class="n">server</span><span class="o">.</span><span class="n">listen</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This example will generate the following server topology:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>paths
+├── /
+│   ├── org.freedesktop.DBus.Introspectable
+│   │   └── Introspect
+│   ├── org.freedesktop.DBus.Peer
+│   │   └── Ping
+│   └── org.freedesktop.DBus.Properties
+│       └── GetAll
+├── /io
+│   ├── org.freedesktop.DBus.Introspectable
+│   │   └── Introspect
+│   ├── org.freedesktop.DBus.Peer
+│   │   └── Ping
+│   └── org.freedesktop.DBus.Properties
+│       └── GetAll
+├── /io/github
+│   ├── org.freedesktop.DBus.Introspectable
+│   │   └── Introspect
+│   ├── org.freedesktop.DBus.Peer
+│   │   └── Ping
+│   └── org.freedesktop.DBus.Properties
+│       └── GetAll
+├── /io/github/ffy00
+│   ├── org.freedesktop.DBus.Introspectable
+│   │   └── Introspect
+│   ├── org.freedesktop.DBus.Peer
+│   │   └── Ping
+│   └── org.freedesktop.DBus.Properties
+│       └── GetAll
+├── /io/github/ffy00/dbus_objects
+│   ├── org.freedesktop.DBus.Introspectable
+│   │   └── Introspect
+│   ├── org.freedesktop.DBus.Peer
+│   │   └── Ping
+│   └── org.freedesktop.DBus.Properties
+│       └── GetAll
+└── /io/github/ffy00/dbus_objects/example
+    ├── io.github.ffy00.dbus_objects.example.ExampleObject
+    │   ├── GetBets
+    │   ├── Lotery
+    │   ├── Ping
+    │   ├── Print
+    │   ├── SaveBet
+    │   └── Sum
+    ├── org.freedesktop.DBus.Introspectable
+    │   └── Introspect
+    ├── org.freedesktop.DBus.Peer
+    │   └── Ping
+    └── org.freedesktop.DBus.Properties
+        └── GetAll
+</pre></div>
+</div>
+<p>And, for eg., the following DBus introspection XML for <code class="docutils literal notranslate"><span class="pre">/io/github/ffy00/dbus_objects/example</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;!DOCTYPE node PUBLIC
+&quot;-//freedesktop//DTD D-BUS Object Introspection 1.0//EN&quot;
+&quot;http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd&quot; &gt;
+&lt;node xmlns:doc=&quot;http://www.freedesktop.org/dbus/1.0/doc.dtd&quot;&gt;
+    &lt;interface name=&quot;io.github.ffy00.dbus_objects.example.ExampleObject&quot;&gt;
+        &lt;method name=&quot;GetBets&quot;&gt;
+            &lt;arg direction=&quot;out&quot; type=&quot;ai&quot; /&gt;
+        &lt;/method&gt;
+        &lt;method name=&quot;Lotery&quot;&gt;
+            &lt;arg direction=&quot;out&quot; type=&quot;i&quot; /&gt;
+        &lt;/method&gt;
+        &lt;method name=&quot;Ping&quot;&gt;
+            &lt;arg direction=&quot;out&quot; type=&quot;s&quot; /&gt;
+        &lt;/method&gt;
+        &lt;method name=&quot;Print&quot;&gt;
+            &lt;arg direction=&quot;in&quot; type=&quot;s&quot; name=&quot;msg&quot; /&gt;
+        &lt;/method&gt;
+        &lt;method name=&quot;SaveBet&quot;&gt;
+            &lt;arg direction=&quot;in&quot; type=&quot;i&quot; name=&quot;number&quot; /&gt;
+        &lt;/method&gt;
+        &lt;method name=&quot;Sum&quot;&gt;
+            &lt;arg direction=&quot;in&quot; type=&quot;i&quot; name=&quot;a&quot; /&gt;
+            &lt;arg direction=&quot;in&quot; type=&quot;i&quot; name=&quot;b&quot; /&gt;
+            &lt;arg direction=&quot;out&quot; type=&quot;i&quot; /&gt;
+        &lt;/method&gt;
+    &lt;/interface&gt;
+    &lt;interface name=&quot;org.freedesktop.DBus.Properties&quot;&gt;
+        &lt;method name=&quot;GetAll&quot;&gt;
+            &lt;arg direction=&quot;in&quot; type=&quot;s&quot; name=&quot;interface_name&quot; /&gt;
+            &lt;arg direction=&quot;out&quot; type=&quot;a{sv}&quot; /&gt;
+        &lt;/method&gt;
+    &lt;/interface&gt;
+    &lt;interface name=&quot;org.freedesktop.DBus.Introspectable&quot;&gt;
+        &lt;method name=&quot;Introspect&quot;&gt;
+            &lt;arg direction=&quot;out&quot; type=&quot;s&quot; name=&quot;xml&quot; /&gt;
+        &lt;/method&gt;
+    &lt;/interface&gt;
+    &lt;interface name=&quot;org.freedesktop.DBus.Peer&quot;&gt;
+        &lt;method name=&quot;Ping&quot; /&gt;
+    &lt;/interface&gt;
+&lt;/node&gt;
+</pre></div>
+</div>
 <div class="section" id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/caesar0301/treelib">treelib</a></p></li>
+</ul>
 <p>Tests:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/pytest-dev/pytest">pytest</a></p></li>
@@ -62,9 +211,7 @@
 </div>
 <div class="section" id="license">
 <h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
-<p>This software is offered under the <a class="reference external" href="https://firstdonoharm.dev/">Hippocratic License 2.1</a>,
-a permissive license that enforces the licensee to comply with human rights principles
-and laws.</p>
+<p>MIT</p>
 </div>
 </div>
 
@@ -114,7 +261,7 @@ and laws.</p>
   
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Filipe Laíns.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   <script src="_static/version_warning_offset.js"></script>
 

@@ -1,13 +1,13 @@
 dbus\_objects.integration package
 =================================
 
-Submodules
-----------
+Subpackages
+-----------
 
 .. toctree::
    :maxdepth: 4
 
-   dbus_objects.integration.base
+   dbus_objects.integration.jeepney
 
 Module contents
 ---------------

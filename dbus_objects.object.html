@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>dbus_objects.object module &#8212; dbus-objects  documentation</title>
     <link rel="stylesheet" href="_static/flask.css" type="text/css" />
@@ -16,8 +16,8 @@
     <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="dbus_objects.types module" href="dbus_objects.types.html" />
-    <link rel="prev" title="dbus_objects.integration.base module" href="dbus_objects.integration.base.html" />
+    <link rel="next" title="dbus_objects.signature module" href="dbus_objects.signature.html" />
+    <link rel="prev" title="dbus_objects.integration.jeepney package" href="dbus_objects.integration.jeepney.html" />
   <script>DOCUMENTATION_OPTIONS.URL_ROOT = './';</script>
    
   </head><body>
@@ -31,10 +31,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="dbus_objects.types.html" title="dbus_objects.types module"
+          <a href="dbus_objects.signature.html" title="dbus_objects.signature module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="dbus_objects.integration.base.html" title="dbus_objects.integration.base module"
+          <a href="dbus_objects.integration.jeepney.html" title="dbus_objects.integration.jeepney package"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">dbus-objects  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >dbus_objects</a> &#187;</li>
@@ -52,7 +52,7 @@
 <span id="dbus-objects-object-module"></span><h1>dbus_objects.object module<a class="headerlink" href="#module-dbus_objects.object" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="dbus_objects.object.DBusObject">
-<em class="property">class </em><code class="sig-prename descclassname">dbus_objects.object.</code><code class="sig-name descname">DBusObject</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">default_interface</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus_objects.object.DBusObject" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">dbus_objects.object.</code><code class="sig-name descname">DBusObject</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">default_interface_root</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus_objects.object.DBusObject" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This class represents a DBus object. It should be subclassed and to export
 DBus methods, you must define typed functions with the
@@ -98,8 +98,9 @@ specified in the arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>interface</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – DBus interface name</p></li>
+<li><p><strong>interface</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – DBus interface name</p></li>
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – DBus method name</p></li>
+<li><p><strong>return_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – Names of the return arguments</p></li>
 <li><p><strong>multiple_returns</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Returns multiple parameters</p></li>
 </ul>
 </dd>
@@ -130,8 +131,8 @@ specified in the arguments.</p>
         <ul>
       <li><a href="dbus_objects.html">dbus_objects package</a>
         <ul>
-          <li>Previous: <a href="dbus_objects.integration.base.html" title="previous chapter">dbus_objects.integration.base module</a>
-          <li>Next: <a href="dbus_objects.types.html" title="next chapter">dbus_objects.types module</a></ul>
+          <li>Previous: <a href="dbus_objects.integration.jeepney.html" title="previous chapter">dbus_objects.integration.jeepney package</a>
+          <li>Next: <a href="dbus_objects.signature.html" title="next chapter">dbus_objects.signature module</a></ul>
       </li></ul>
       </li>
     </ul>
@@ -154,7 +155,7 @@ specified in the arguments.</p>
   
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Filipe Laíns.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   <script src="_static/version_warning_offset.js"></script>
 

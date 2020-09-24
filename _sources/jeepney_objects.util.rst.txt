@@ -1,7 +1,0 @@
-jeepney\_objects.util module
-============================
-
-.. automodule:: jeepney_objects.util
-   :members:
-   :undoc-members:
-   :show-inheritance:

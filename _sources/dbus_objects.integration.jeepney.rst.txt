@@ -1,0 +1,10 @@
+dbus\_objects.integration.jeepney package
+=========================================
+
+Module contents
+---------------
+
+.. automodule:: dbus_objects.integration.jeepney
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,7 +1,0 @@
-jeepney\_objects.types module
-=============================
-
-.. automodule:: jeepney_objects.types
-   :members:
-   :undoc-members:
-   :show-inheritance:

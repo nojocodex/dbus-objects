@@ -1,7 +1,0 @@
-dbus\_objects.integration.base module
-=====================================
-
-.. automodule:: dbus_objects.integration.base
-   :members:
-   :undoc-members:
-   :show-inheritance:

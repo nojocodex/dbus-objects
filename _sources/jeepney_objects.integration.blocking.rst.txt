@@ -1,7 +1,0 @@
-jeepney\_objects.integration.blocking module
-============================================
-
-.. automodule:: jeepney_objects.integration.blocking
-   :members:
-   :undoc-members:
-   :show-inheritance:
