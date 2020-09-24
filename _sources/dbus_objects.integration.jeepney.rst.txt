@@ -1,8 +1,5 @@
-dbus\_objects.integration.jeepney package
-=========================================
-
-Module contents
----------------
+dbus\_objects.integration.jeepney module
+========================================
 
 .. automodule:: dbus_objects.integration.jeepney
    :members:

@@ -1,8 +1,8 @@
 dbus\_objects.integration package
 =================================
 
-Subpackages
------------
+Submodules
+----------
 
 .. toctree::
    :maxdepth: 4
