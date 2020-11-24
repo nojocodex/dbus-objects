@@ -65,6 +65,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">default_interface_root</span><span class="o">=</span><span class="s1">&#39;io.github.ffy00.dbus_objects.example&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_bets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s1">&#39;something&#39;</span>
 
     <span class="nd">@dbus_objects</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">dbus_method</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">ping</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -91,6 +92,14 @@
         <span class="n">winner</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bets</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_bets</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">return</span> <span class="n">winner</span>
+
+    <span class="nd">@dbus_objects</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">dbus_property</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+
+    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">value</span>
 
 
 <span class="n">server</span> <span class="o">=</span> <span class="n">dbus_objects</span><span class="o">.</span><span class="n">integration</span><span class="o">.</span><span class="n">jeepney</span><span class="o">.</span><span class="n">BlockingDBusServer</span><span class="p">(</span>
