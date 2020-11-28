@@ -1,56 +1,139 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="../genindex/" /><link rel="search" title="Search" href="../search/" /><link rel="next" title="Changelog" href="../CHANGELOG/" /><link rel="prev" title="dbus-objects" href="../" />
 
-<!DOCTYPE html>
+    <meta name="generator" content="sphinx-3.3.1, furo 2020.11.10.beta15"/>
+        <title>API Documentation - dbus-objects 0.0.1</title>
+      <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <link rel="stylesheet" href="../_static/styles/furo.css?state=7462e2d9cefdb4c17de94d8b">
+    <link rel="stylesheet" href="../_static/pygments.css">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../_static/pygments_dark.css">
+    
 
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>dbus_objects.object module &#8212; dbus-objects  documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/flask.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="dbus_objects.signature module" href="dbus_objects.signature.html" />
-    <link rel="prev" title="dbus_objects.integration.jeepney module" href="dbus_objects.integration.jeepney.html" />
-  <script>DOCUMENTATION_OPTIONS.URL_ROOT = './';</script>
-   
-  </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="dbus_objects.signature.html" title="dbus_objects.signature module"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="dbus_objects.integration.jeepney.html" title="dbus_objects.integration.jeepney module"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">dbus-objects  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="modules.html" >dbus_objects</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="dbus_objects.html" accesskey="U">dbus_objects package</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">dbus_objects.object module</a></li> 
-      </ul>
-    </div>  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
-            
-  <div class="section" id="module-dbus_objects.object">
-<span id="dbus-objects-object-module"></span><h1>dbus_objects.object module<a class="headerlink" href="#module-dbus_objects.object" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<style>
+  :root {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+
+  /* For allowing end-user-specific overrides */
+  .override-light {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  .override-dark {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+</style>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script><script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/scripts/main.js?state=7462e2d9cefdb4c17de94d8b"></script></head>
+  <body dir="">
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z"/>
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../"><div class="brand">dbus-objects 0.0.1</div></a>
+    </div>
+    <div class="header-right">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../">
+  
+  <span class="sidebar-brand-text">dbus-objects 0.0.1</span>
+</a><form class="sidebar-search-container" method="get" action="../search/">
+  <input class="sidebar-search" placeholder="Search" name="q">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form><div class="sidebar-scroll">
+  <div class="sidebar-tree">
+    <ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHANGELOG/">Changelog</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/FFY00/dbus-objects">Source Code</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/FFY00/dbus-objects/issues">Issue Tracker</a></li>
+</ul>
+
+  </div>
+  
+  
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <article role="main">
+        <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        </label>
+        <div class="section" id="module-dbus_objects">
+<span id="api-documentation"></span><h1>API Documentation<a class="headerlink" href="#module-dbus_objects" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-dbus_objects.object"></span><dl class="py class">
 <dt id="dbus_objects.object.DBusObject">
 <em class="property">class </em><code class="sig-prename descclassname">dbus_objects.object.</code><code class="sig-name descname">DBusObject</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">default_interface_root</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus_objects.object.DBusObject" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
@@ -66,7 +149,6 @@ DBus methods, you must define typed functions with the
 </dd>
 </dl>
 </dd></dl>
-
 <dl class="py method">
 <dt id="dbus_objects.object.DBusObject.get_dbus_methods">
 <code class="sig-name descname">get_dbus_methods</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dbus_objects.object.DBusObject.get_dbus_methods" title="Permalink to this definition">¶</a></dt>
@@ -77,7 +159,6 @@ DBus methods, you must define typed functions with the
 </dd>
 </dl>
 </dd></dl>
-
 <dl class="py method">
 <dt id="dbus_objects.object.DBusObject.get_dbus_properties">
 <code class="sig-name descname">get_dbus_properties</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dbus_objects.object.DBusObject.get_dbus_properties" title="Permalink to this definition">¶</a></dt>
@@ -88,15 +169,12 @@ DBus methods, you must define typed functions with the
 </dd>
 </dl>
 </dd></dl>
-
 </dd></dl>
-
 <dl class="py exception">
 <dt id="dbus_objects.object.DBusObjectException">
 <em class="property">exception </em><code class="sig-prename descclassname">dbus_objects.object.</code><code class="sig-name descname">DBusObjectException</code><a class="headerlink" href="#dbus_objects.object.DBusObjectException" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
 </dd></dl>
-
 <dl class="py function">
 <dt id="dbus_objects.object.dbus_method">
 <code class="sig-prename descclassname">dbus_objects.object.</code><code class="sig-name descname">dbus_method</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interface</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">return_names</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">multiple_returns</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus_objects.object.dbus_method" title="Permalink to this definition">¶</a></dt>
@@ -119,7 +197,6 @@ specified in the arguments.</p>
 </dd>
 </dl>
 </dd></dl>
-
 <dl class="py function">
 <dt id="dbus_objects.object.dbus_property">
 <code class="sig-prename descclassname">dbus_objects.object.</code><code class="sig-name descname">dbus_property</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interface</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">return_names</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">multiple_returns</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus_objects.object.dbus_property" title="Permalink to this definition">¶</a></dt>
@@ -139,55 +216,102 @@ specified in the arguments.</p>
 </dd>
 </dl>
 </dd></dl>
+<span class="target" id="module-dbus_objects.signature"></span><dl class="py class">
+<dt id="dbus_objects.signature.DBusSignature">
+<em class="property">class </em><code class="sig-prename descclassname">dbus_objects.signature.</code><code class="sig-name descname">DBusSignature</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">annotations</span></em>, <em class="sig-param"><span class="n">names</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus_objects.signature.DBusSignature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt id="dbus_objects.signature.DBusSignature.from_parameters">
+<em class="property">classmethod </em><code class="sig-name descname">from_parameters</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="n">skip_first_argument</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus_objects.signature.DBusSignature.from_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#dbus_objects.signature.DBusSignature" title="dbus_objects.signature.DBusSignature"><code class="xref py py-class docutils literal notranslate"><span class="pre">DBusSignature</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="dbus_objects.signature.DBusSignature.from_return">
+<em class="property">classmethod </em><code class="sig-name descname">from_return</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="n">return_names</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">multiple_returns</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus_objects.signature.DBusSignature.from_return" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#dbus_objects.signature.DBusSignature" title="dbus_objects.signature.DBusSignature"><code class="xref py py-class docutils literal notranslate"><span class="pre">DBusSignature</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="dbus_objects.signature.DBusSignature.names">
+<em class="property">property </em><code class="sig-name descname">names</code><a class="headerlink" href="#dbus_objects.signature.DBusSignature.names" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+<dl class="py function">
+<dt id="dbus_objects.signature.dbus_case">
+<code class="sig-prename descclassname">dbus_objects.signature.</code><code class="sig-name descname">dbus_case</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus_objects.signature.dbus_case" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts text to the DBus object capitalization (camel case with the first
+letter capitalized)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – text to convert</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+<span class="target" id="module-dbus_objects.types"></span></div>
 
-</div>
-
-
-            <div class="clearer"></div>
-          </div>
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../CHANGELOG/">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Changelog</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Home</div>
+                
+              </div>
+            </a>
         </div>
-      </div>
-  <span id="sidebar-top"></span>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  
-    
-  
-<h3>Navigation</h3>
-<ul>
-  <li><a href="index.html">Overview</a>
-    <ul>
-      <li><a href="modules.html">dbus_objects</a>
-        <ul>
-      <li><a href="dbus_objects.html">dbus_objects package</a>
-        <ul>
-          <li>Previous: <a href="dbus_objects.integration.jeepney.html" title="previous chapter">dbus_objects.integration.jeepney module</a>
-          <li>Next: <a href="dbus_objects.signature.html" title="next chapter">dbus_objects.signature module</a></ul>
-      </li></ul>
-      </li>
-    </ul>
-  </li>
-</ul>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-  
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2020, Filipe Laíns.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.3.1.
-    </div>
-  <script src="_static/version_warning_offset.js"></script>
 
+        <div class="related-information">
+              Copyright &#169; 2020, Filipe Laíns
+            |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+            |
+            <a class="muted-link" href="../_sources/api.rst.txt"
+               rel="nofollow">
+              Show Source
+            </a>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </main>
+</div>
   </body>
 </html>

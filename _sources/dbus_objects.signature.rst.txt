@@ -1,7 +1,0 @@
-dbus\_objects.signature module
-==============================
-
-.. automodule:: dbus_objects.signature
-   :members:
-   :undoc-members:
-   :show-inheritance:

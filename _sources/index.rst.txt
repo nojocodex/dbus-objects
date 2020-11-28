@@ -1,12 +1,19 @@
+:hide-toc:
+
 dbus-objects
 ============
 
+DBus objects implementation on top of the Python type system.
+
+.. literalinclude:: ../examples/simple.py
+  :language: Python
+
 .. toctree::
-   :maxdepth: 2
+   :hidden:
 
-   Readme <README.md>
+   api
 
-.. toctree::
-   :maxdepth: 2
+   CHANGELOG
 
-   API Documentation <modules>
+   Source Code <https://github.com/FFY00/dbus-objects>
+   Issue Tracker <https://github.com/FFY00/dbus-objects/issues>
