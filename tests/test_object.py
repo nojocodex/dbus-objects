@@ -3,9 +3,9 @@
 import xml.etree.ElementTree as ET
 
 import pytest
-import xmldiff
+import xmldiff.main
 
-from dbus_objects.object import DBusObject, DBusObjectException, dbus_method
+from dbus_objects.object import DBusObject, DBusObjectException, dbus_method, DBusSignal
 
 
 def test_dbus_object(obj):
@@ -61,6 +61,62 @@ def test_property(obj_properties):
     assert False  # pragma: no cover
 
 
+def test_decorated_signal(obj_signals, obj):
+    DBusSignal.queue.clear()
+    for emitter, descriptor in obj_signals:
+        if descriptor.name == 'DecoratedSignal':
+            assert descriptor.signature == 'si'
+            assert list(descriptor._signature.names) == ['val1', 'val2']
+            assert len(DBusSignal.queue) == 0
+            emitter('a', 1)
+            assert len(DBusSignal.queue) == 1
+            assert DBusSignal.queue[0] == (descriptor.name, descriptor.signature, ('a', 1), obj, descriptor.interface)
+            return
+    assert False  # pragma: no cover
+
+
+def test_empty_signal(obj_signals, obj):
+    DBusSignal.queue.clear()
+    for emitter, descriptor in obj_signals:
+        if descriptor.name == 'EmptySignal':
+            assert descriptor.signature == ''
+            assert descriptor._signature.names == None
+            assert len(DBusSignal.queue) == 0
+            emitter()
+            assert len(DBusSignal.queue) == 1
+            assert DBusSignal.queue[0] == (descriptor.name, descriptor.signature, (), obj, descriptor.interface)
+            return
+    assert False  # pragma: no cover
+
+
+def test_unnamed_signal(obj_signals, obj):
+    DBusSignal.queue.clear()
+    for emitter, descriptor in obj_signals:
+        if descriptor.name == 'UnnamedSignal':
+            assert descriptor.signature == 'si'
+            assert descriptor._signature.names == None
+            assert len(DBusSignal.queue) == 0
+            emitter('a', 1)
+            assert len(DBusSignal.queue) == 1
+            assert DBusSignal.queue[0] == (descriptor.name, descriptor.signature, ('a', 1), obj, descriptor.interface)
+            return
+    assert False  # pragma: no cover
+
+
+def test_named_signal(obj_signals, obj):
+    DBusSignal.queue.clear()
+    for emitter, descriptor in obj_signals:
+        if descriptor.name == 'NamedSignal':
+            assert descriptor.signature == 'si'
+            assert list(descriptor._signature.names) == ['val1', 'val2']
+            assert len(DBusSignal.queue) == 0
+            emitter('a', 1)
+            assert len(DBusSignal.queue) == 1
+            assert DBusSignal.queue[0] == (descriptor.name, descriptor.signature, ('a', 1), obj, descriptor.interface)
+            return
+    assert False  # pragma: no cover
+
+
 def test_method_xml(obj_methods):
     for _method, descriptor in obj_methods:
         if descriptor.name == 'ExampleMethod':
@@ -87,3 +143,34 @@ def test_property_xml(obj_properties):
             )
             return
     assert False  # pragma: no cover
+
+
+def test_signal_xml(obj_signals):
+    expected = { 'DecoratedSignal':
+                    f'<signal name="DecoratedSignal">'
+                    f'<arg type="s" name="val1" />'
+                    f'<arg type="i" name="val2" />'
+                    f'</signal>',
+                 'EmptySignal':
+                    f'<signal name="EmptySignal" />',
+                 'UnnamedSignal':
+                    f'<signal name="UnnamedSignal">'
+                    f'<arg type="s" />'
+                    f'<arg type="i" />'
+                    f'</signal>',
+                 'NamedSignal':
+                    f'<signal name="NamedSignal">'
+                    f'<arg type="s" name="val1" />'
+                    f'<arg type="i" name="val2" />'
+                    f'</signal>',
+               }
+    must_see = list(expected.keys())
+
+    for _emitter, descriptor in obj_signals:
+        if descriptor.name in expected:
+            assert not xmldiff.main.diff_texts(
+                ET.tostring(descriptor.xml).decode(), expected[descriptor.name]
+            )
+            must_see.remove(descriptor.name)
+    assert len(must_see) == 0
+

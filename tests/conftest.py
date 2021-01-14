@@ -9,7 +9,7 @@ import pytest
 
 from dbus_objects.integration import DBusServerBase
 from dbus_objects.integration.jeepney import BlockingDBusServer
-from dbus_objects.object import DBusObject, dbus_method, dbus_property
+from dbus_objects.object import DBusObject, DBusSignal, dbus_method, dbus_property, dbus_signal
 from dbus_objects.types import MultipleReturn
 
 
@@ -45,6 +45,14 @@ class ExampleObject(DBusObject):
     def prop(self, value: str):
         self._property = value
 
+    @dbus_signal()
+    def decorated_signal(self, val1: str, val2: int):
+        return (val1, val2)
+
+    empty_signal = DBusSignal()
+    unnamed_signal = DBusSignal(str, int)
+    named_signal = DBusSignal(val1 = str, val2 = int)
+
 
 @pytest.fixture(scope='session')
 def obj():
@@ -59,6 +67,11 @@ def obj_methods(obj):
 @pytest.fixture()
 def obj_properties(obj):
     return obj.get_dbus_properties()
+
+
+@pytest.fixture()
+def obj_signals(obj):
+    return obj.get_dbus_signals()
 
 
 @pytest.fixture()

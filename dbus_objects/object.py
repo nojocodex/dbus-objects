@@ -203,7 +203,156 @@ class _DBusProperty(_DBusMethodBase):
         return self
 
 
-# TODO: _DBusSignal
+class DBusSignal(_DBusDescriptorBase):
+    ''' Descriptor class to support signal message generation by DBus objects.
+
+        This class may be used to define the signals that may be sent by a
+        :class:`DBusObject`-derived class. To do so, either use the decorator
+        :func:`dbus_signal()` defined below on a method in the class, or just
+        assign an instance of this class to an attribute in the target class.
+        Calling the decorated method or attribute will result in a signal being
+        added to the global queue, to be handled by the I/O integration at some
+        later time.
+
+        This class handles generating the signal's body, which is just a tuple
+        of values, and holds the signal's signature, which describes the types
+        and (optionally) names of the body tuple's elements.
+
+        The body generation and signature may be initialized by constructing an
+        instance of this class and providing one of the following:
+
+         - a function that generates the signal body, in which case the signal's
+           signature is taken from the function's arguments. Note that this
+           requires the function's arguments to have type annotations.
+         - zero or more *types* as positional arguments, in which case these
+           types form the signal's signature. In this case, the elements of the
+           signature will be unnamed. When emitting a signal, the signal member
+           must be called with positional arguments whose values match the
+           signature and that will be returned directly as the signal body; or
+         - one or more keyword arguments whose values are *types*, which is
+           handled identically to the positional case above, except that the
+           signal signature attributes will be named by the keyword arguments'
+           names.
+
+        Attributes:
+         queue (List):          (Class attribute) global queue of signals that
+                                are waiting to be emitted.
+         signature (str):       The signal's signature as a string.
+         xml (str):             The signal's introspection XML string.
+    '''
+
+    # The global signal queue.
+    #
+    queue: List[Tuple[dbus_objects.object.DBusObject, str, str, Tuple[Any, ...]]] = []
+
+
+    # --------------------------------------------------------------------------
+    #
+    # Constructor.
+    #
+
+    def __init__(self, *args, func: Callable[..., Any] = None, interface: Optional[str] = None, name: Optional[str] = None, **kwargs):
+        ''' Constructor.
+
+            Args:
+             func (Callable):   The function that will generate the signal's
+                                body tuple.
+             interface (str):   The interface of which this signal is part.
+             name (str):        The object name of which this signal is part.
+             *args:             Positional arguments specifying the types of
+                                the signal's body tuple's elements.
+             **kwargs:          Keyword arguments specifying the types of the
+                                signal's body tuple's elements.
+        '''
+
+        super().__init__(interface, name)
+
+        # Ensure at most one of our sources of wrapped function & signature was
+        #  provided. Note that if none of these sources were provided, the
+        #  signal body will just be empty.
+        #
+        if [bool(func), bool(args), bool(kwargs)].count(True) > 1:
+            raise ValueError('Must specify at most one of function, positional arguments and keyword arguments for a DBus signal')
+
+        # Get `dbus_objects` to magically populate the signal list.
+        #
+        self._list_name = '_dbus_signals'
+
+        # If a function was provided (e.g. by the :func:`dbus_signal()` decorator
+        #  below), wrap it. Otherwise, use a default implementation that just
+        #  returns its (positional) arguments minus the first one (`self`).
+        #
+        self._func = func or (lambda *args: args[1:])
+
+        # Set up our signature.
+        #
+        if func:
+            self._signature = dbus_objects.signature.DBusSignature.from_parameters(func)
+        elif args:
+            self._signature = dbus_objects.signature.DBusSignature(args, None)
+        elif kwargs:
+            self._signature = dbus_objects.signature.DBusSignature(kwargs.values(), kwargs.keys())
+        else:
+            self._signature = dbus_objects.signature.DBusSignature([], None)
+
+
+    # --------------------------------------------------------------------------
+    #
+    # Properties.
+    #
+
+    @property
+    def signature(self) -> str:
+        ''' The DBus signature for this signal as a string.
+        '''
+        return str(self._signature)
+
+
+    @property
+    def xml(self) -> ET.Element:
+        ''' The DBus introspection XML for this signal.
+        '''
+
+        if not self._signature:
+            raise ValueError("Signature hasn't been set yet")
+
+        xml = ET.Element('signal', {'name': self.name})
+
+        names = self._signature.names or []
+
+        for name, sigtype in itertools.zip_longest(names, self.signature):
+            data = { 'type': sigtype }
+
+            if name:
+                data['name'] = name
+
+            ET.SubElement(xml, 'arg', data)
+
+        return xml
+
+
+    # --------------------------------------------------------------------------
+    #
+    # Descriptor protocol.
+    #
+
+    def __set_name__(self, obj_type: Any, name: str) -> None:
+        super().__set_name__(obj_type, name)
+
+        # Default the signal name to the name of the attribute to which the
+        #  descriptor is assigned.
+        #
+        if self._name is None:
+            self._name = dbus_objects.signature.dbus_case(name)
+
+
+    def __get__(self, obj: Any, obj_type: Any = None) -> Any:
+        if not obj:
+            return self._func
+
+        self.register_interface(obj)
+
+        return lambda *args: self.queue.append( (self.name, self.signature, self._func(obj, *args), obj, self.interface) )
 
 
 def dbus_method(
@@ -252,6 +401,22 @@ def dbus_property(
     return decorator
 
 
+def dbus_signal(interface: Optional[str] = None, name: Optional[str] = None) -> Callable[[Callable[..., Any]], DBusSignal]:
+    '''
+    Decorator for callables that generate a DBus signal message.
+
+    Works just like :meth:`dbus_method`, except that calling the decorated
+    method will queue a signal to be sent and return `None`.
+
+    :param interface: DBus interface name
+    :param name: DBus signal name. Defaults to the decorated function's name.
+    '''
+    def decorator(func: Callable[..., Any]) -> DBusSignal:
+        return DBusSignal(func = func, interface = interface, name = name or func.__name__)
+
+    return decorator
+
+
 _DBusMethodTupleInternal = Tuple[str, _DBusMethod]  # method name, method descriptor
 _DBusMethodTuple = Tuple[Callable[..., Any], _DBusMethod]  # method, method descriptor
 
@@ -262,6 +427,8 @@ _DBusPropertyTuple = Tuple[
     _DBusProperty
 ]  # getter, setter, descriptor
 
+_DBusSignalTupleInternal = Tuple[str, DBusSignal] # signal name, signal descriptor
+_DBusSignalTuple = Tuple[Callable[..., Any], DBusSignal] # signal queuing function, descriptor
 
 class DBusObject():
     '''
@@ -272,6 +439,8 @@ class DBusObject():
     # type -> method name list
     _dbus_methods: Optional[List[_DBusMethodTupleInternal]] = None
     _dbus_properties: Optional[List[_DBusPropertyTupleInternal]] = None
+    _dbus_signals: Optional[List[_DBusSignalTupleInternal]] = None
+
 
     def __init__(self, name: Optional[str] = None, default_interface_root: Optional[str] = None):
         '''
@@ -312,6 +481,13 @@ class DBusObject():
                 lambda value: setattr(self, property_name, value),
                 descriptor,
             )
+
+    def get_dbus_signals(self) -> Generator[_DBusSignalTuple, _DBusSignalTuple, None]:
+        if not self._dbus_signals:
+            return
+        for signal_name, descriptor in self._dbus_signals:
+            yield getattr(self, signal_name), descriptor
+
 
 
 class DBusObjectException(Exception):

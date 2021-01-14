@@ -33,6 +33,7 @@ class _Introspectable(dbus_objects.object.DBusObject):
         path: str,
         method_tree: Optional[treelib.Tree] = None,
         property_tree: Optional[treelib.Tree] = None,
+        signal_tree: Optional[treelib.Tree] = None,
     ):
         '''
         :param path: path where the onject is being resgistered
@@ -45,6 +46,7 @@ class _Introspectable(dbus_objects.object.DBusObject):
         self._path = path
         self._method_tree = method_tree
         self._property_tree = property_tree
+        self._signal_tree = signal_tree
 
     @dbus_objects.object.dbus_method(return_names=('xml',))
     def introspect(self) -> str:  # noqa: C901
@@ -68,6 +70,12 @@ class _Introspectable(dbus_objects.object.DBusObject):
                 interface = get_interface(node.tag)
                 for property_node in self._property_tree.children(node.identifier):
                     getter, setter, descriptor = property_node.data
+                    interface.append(descriptor.xml)
+        if self._signal_tree and self._path in self._signal_tree:
+            for node in self._signal_tree.children(self._path):
+                interface = get_interface(node.tag)
+                for signal_node in self._signal_tree.children(node.identifier):
+                    handler, descriptor = signal_node.data
                     interface.append(descriptor.xml)
 
         # add nodes (subpaths)
@@ -198,8 +206,10 @@ class DBusServerBase():
         self.__logger = logging.getLogger(self.__class__.__name__)
         self._bus = bus
         self._name = name
+        self._objects = {}
         self._method_tree = _DBusTree()
         self._property_tree = _DBusTree()
+        self._signal_tree = _DBusTree()
 
     @property
     def name(self) -> str:
@@ -233,6 +243,27 @@ class DBusServerBase():
             dbus_objects.object._DBusPropertyTuple,
             self._property_tree.get_element(path, interface, method)
         )
+
+    def get_signal(self, path: str, interface: str, signal: str) -> dbus_objects.object._DBusSignalTuple:
+        '''
+        Fetches the signal for given path, interface and signal name.
+
+        :param path: signal path
+        :param interface: signal interface
+        :param signal: signal name
+        '''
+        return typing.cast(
+            dbus_objects.object._DBusSignalTuple,
+            self._signal_tree.get_element(path, interface, signal)
+        )
+
+    def get_object_path(self, obj):
+        '''
+        Find the path under which an object is registered.
+
+        :param obj: the object to look up
+        '''
+        return self._objects[obj]
 
     def _register_element(
         self,
@@ -271,6 +302,14 @@ class DBusServerBase():
         :param ignore_warn: ignores the duplicated object warning, you want to
                             set this when registering the standard interfaces
         '''
+
+        # Track the path under which objects are registered, so that the signal
+        #  emitter address can be set properly when sending a signal.
+        #
+        if not ignore_warn and obj in self._objects:
+            warnings.warn(f'{obj.dbus_name}: Object already registered at path: {self._objects[obj]}')
+        self._objects[obj] = path
+
         for method, method_descriptor in obj.get_dbus_methods():
             self._register_element(
                 self._method_tree,
@@ -287,6 +326,15 @@ class DBusServerBase():
                 property_descriptor.interface,
                 property_descriptor.name,
                 (getter, setter, property_descriptor),
+                ignore_warn,
+            )
+        for signal_handler, signal_descriptor in obj.get_dbus_signals():
+            self._register_element(
+                self._signal_tree,
+                path,
+                signal_descriptor.interface,
+                signal_descriptor.name,
+                (signal_handler, signal_descriptor),
                 ignore_warn,
             )
 
@@ -306,7 +354,7 @@ class DBusServerBase():
             self._register_object(path, _Peer(), ignore_warn=True)
             self._register_object(
                 path,
-                _Introspectable(path, self._method_tree, self._property_tree),
+                _Introspectable(path, self._method_tree, self._property_tree, self._signal_tree),
                 ignore_warn=True
             )
             do = path != '/'

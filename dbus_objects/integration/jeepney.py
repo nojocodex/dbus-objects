@@ -7,9 +7,11 @@ import time
 from typing import Optional
 
 import jeepney
+import jeepney.wrappers
 import jeepney.io.blocking
 
 import dbus_objects.integration
+from dbus_objects.object import DBusSignal
 
 
 class BlockingDBusServer(dbus_objects.integration.DBusServerBase):
@@ -73,6 +75,7 @@ class BlockingDBusServer(dbus_objects.integration.DBusServerBase):
                 msg_sig = ''
 
             signature_input, signature_output = descriptor.signature
+            signal_msgs = []
 
             if signature_input != msg_sig:
                 self.__logger.debug(
@@ -86,6 +89,12 @@ class BlockingDBusServer(dbus_objects.integration.DBusServerBase):
             else:
                 try:
                     return_args = method(*msg.body)
+
+                    # Create a signal message for any signal added to the global
+                    #  signal queue during handling of the method call.
+                    #
+                    for name, signature, body, source_obj, interface in DBusSignal.queue:
+                        signal_msgs.append( self._construct_signal(name, signature, body, source_obj, interface, dst = msg.header.fields[jeepney.HeaderFields.sender]) )
                 except Exception as e:
                     self.__logger.error(
                         f'An exception ocurred when try to call method: {descriptor.name}',
@@ -98,10 +107,45 @@ class BlockingDBusServer(dbus_objects.integration.DBusServerBase):
                         signature_output,
                         (return_args,) if return_args is not None else tuple()
                     )
+                finally:
+                    #
+                    # Clean up the global signal queue.
+                    #
+                    DBusSignal.queue.clear()
 
             self._conn.send_message(return_msg)
+
+            # Send queued signal messages after the method return has been sent.
+            #
+            for msg in signal_msgs:
+                self.__logger.debug(f'Emitting signal: {msg.header.fields[jeepney.HeaderFields.member]}, body: {msg.body}')
+                self._conn.send_message(msg)
         else:
             self.__logger.info(f'Unhandled message: {msg} / {msg.header} / {msg.header.fields}')
+
+    def _construct_signal(self, name, signature, body, source_obj, interface, dst = None, flags = jeepney.low_level.MessageFlag.no_reply_expected):
+        '''
+        Construct a new DBus signal message.
+
+        :param name:        The signal name.
+        :param signature:   The signature for the signal body.
+        :param body:        The tuple of values for the signal body.
+        :param source_obj:  The object sending the signal -- really only its
+                            path is needed.
+        :param interface:   The interface sending the signal.
+        :param dst:         The client connection to which to send the signal.
+                            If `None` the signal is broadcast.
+        :param flags:       Any flags for the signal message.
+        '''
+        emitter = jeepney.wrappers.DBusAddress( self.get_object_path(source_obj), interface = interface )
+
+        msg = jeepney.new_signal(emitter, name, signature, body)
+        if dst:
+            msg.header.fields[jeepney.low_level.HeaderFields.destination] = dst
+        if flags:
+            msg.header.flags = flags
+
+        return msg
 
     def close(self) -> None:
         '''
